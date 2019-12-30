@@ -5,5 +5,7 @@ import fr.cookiedev.codebreaker.core.Code;
 public interface Question {
 	String answer(Code code);
 
-	String ask();
+	default String ask() {
+		return QuestionMessages.getString(getClass().getSimpleName() + ".ask"); //$NON-NLS-1$
+	}
 }

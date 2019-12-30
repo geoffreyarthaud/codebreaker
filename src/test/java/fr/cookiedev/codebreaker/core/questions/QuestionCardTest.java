@@ -1,4 +1,4 @@
-package fr.cookiedev.codebreaker.core;
+package fr.cookiedev.codebreaker.core.questions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import fr.cookiedev.codebreaker.core.Code;
 import fr.cookiedev.codebreaker.core.questions.ChoiceQuestionCardImpl;
 import fr.cookiedev.codebreaker.core.questions.Question;
 import fr.cookiedev.codebreaker.core.questions.QuestionCard;
