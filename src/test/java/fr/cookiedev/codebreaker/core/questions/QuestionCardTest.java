@@ -90,6 +90,12 @@ class QuestionCardTest {
 	}
 
 	@Test
+	void whenCreateChoiceQuestionWithOneQuestion_thenThrowIAE() {
+		// WHEN
+		assertThrows(IllegalArgumentException.class, () -> new ChoiceQuestionCardImpl("ASKGLOBAL", q1));
+	}
+
+	@Test
 	void whenCreateChoiceQuestionWithNull_thenThrowNPE() {
 		// WHEN
 		assertThrows(NullPointerException.class, () -> new ChoiceQuestionCardImpl("ASKGLOBAL", (Question[]) null));

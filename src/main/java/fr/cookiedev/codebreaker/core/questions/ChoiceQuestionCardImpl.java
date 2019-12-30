@@ -12,7 +12,7 @@ public class ChoiceQuestionCardImpl implements QuestionCard {
 	public ChoiceQuestionCardImpl(String globalMessage, Question... questions) {
 		this.questions = Objects.requireNonNull(questions);
 		this.globalMessage = Objects.requireNonNull(globalMessage);
-		if (questions.length == 0) {
+		if (questions.length < 2) {
 			throw new IllegalArgumentException();
 		}
 		for (final Question q : questions) {
