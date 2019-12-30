@@ -10,10 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import fr.cookiedev.codebreaker.core.Code;
-import fr.cookiedev.codebreaker.core.questions.ChoiceQuestionCardImpl;
-import fr.cookiedev.codebreaker.core.questions.Question;
-import fr.cookiedev.codebreaker.core.questions.QuestionCard;
-import fr.cookiedev.codebreaker.core.questions.SimpleQuestionCardImpl;
 
 @ExtendWith(MockitoExtension.class)
 class QuestionCardTest {

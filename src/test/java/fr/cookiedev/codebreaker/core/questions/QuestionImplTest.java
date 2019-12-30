@@ -11,6 +11,10 @@ import org.reflections.Reflections;
 
 import fr.cookiedev.codebreaker.core.Code;
 import fr.cookiedev.codebreaker.core.Tile;
+import fr.cookiedev.codebreaker.core.questions.impl.LeftSumQuestionImpl;
+import fr.cookiedev.codebreaker.core.questions.impl.RightSumQuestionImpl;
+import fr.cookiedev.codebreaker.core.questions.impl.Tile5QuestionImpl;
+import fr.cookiedev.codebreaker.core.questions.impl.TotalSumQuestionImpl;
 
 public class QuestionImplTest {
 
