@@ -40,7 +40,6 @@ public class QuestionCardDeck {
 		discard = new ArrayList<>();
 		revealed = new ArrayList<>();
 		nextIndex = 0;
-		// fillDeck();
 	}
 
 	public void initDeck(int nbRevealed) {
@@ -59,7 +58,7 @@ public class QuestionCardDeck {
 	}
 
 	public List<QuestionCard> getRevealed() {
-		return Collections.unmodifiableList(revealed);
+		return new ArrayList<>(revealed);
 	}
 
 	public QuestionCard draw(QuestionCard qc) {
@@ -104,5 +103,9 @@ public class QuestionCardDeck {
 		deck.add(cardOf(TotalSumQuestionImpl.class));
 		deck.add(cardOf(FollowValueQuestionImpl.class));
 		Collections.shuffle(deck);
+	}
+
+	public List<QuestionCard> getDiscard() {
+		return new ArrayList<>(discard);
 	}
 }

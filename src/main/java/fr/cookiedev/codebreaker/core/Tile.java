@@ -1,5 +1,9 @@
 package fr.cookiedev.codebreaker.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public enum Tile implements Comparable<Tile> {
 	B0(0, Color.BLACK),
 	W0(0, Color.WHITE),
@@ -41,6 +45,12 @@ public enum Tile implements Comparable<Tile> {
 		BLACK,
 		WHITE,
 		GREEN
+	}
+
+	public static List<Tile> tilesList() {
+		final List<Tile> tiles = new ArrayList<>(Arrays.asList(Tile.values()));
+		tiles.add(Tile.G5);
+		return tiles;
 	}
 
 }

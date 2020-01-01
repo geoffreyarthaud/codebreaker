@@ -68,4 +68,55 @@ class QuestionCardDeckTest {
 		assertThat(qcd.getRevealed()).hasSize(3).doesNotContain(drawCard).contains(revealed.get(0), revealed.get(2));
 	}
 
+	@Test
+	void given3Deck_whenDrawACard_thenDiscardIsCorrectlyUpdated() {
+		// GIVEN
+		qcd.initDeck(3);
+		final List<QuestionCard> revealed = qcd.getRevealed();
+
+		// WHEN
+		final QuestionCard drawCard = qcd.draw(revealed.get(1));
+
+		// THEN
+		assertThat(qcd.getDiscard()).hasSize(1).contains(drawCard);
+	}
+
+	@Test
+	void given3Deck_whenDrawACard_thenStackIsCorrectlyUpdated() {
+		// GIVEN
+		qcd.initDeck(3);
+		final List<QuestionCard> revealed = qcd.getRevealed();
+		final List<QuestionCard> stack = qcd.getStack();
+
+		// WHEN
+		qcd.draw(revealed.get(1));
+		final QuestionCard replacedCard = qcd.getRevealed().stream().filter(qc -> !revealed.contains(qc)).findFirst()
+				.get();
+
+		// THEN
+		assertThat(qcd.getStack())
+				.containsExactlyInAnyOrder(stack.stream().filter(qc -> !qc.equals(replacedCard)).findFirst().get());
+	}
+
+	@Test
+	void given3Deck_whenDrawNotRevealedCard_thenThrowIAE() {
+		// GIVEN
+		qcd.initDeck(3);
+		final QuestionCard badCard = qcd.getStack().get(0);
+
+		// WHEN
+		assertThrows(IllegalArgumentException.class, () -> qcd.draw(badCard));
+	}
+
+	@Test
+	void given3Deck_whenDrawDiscardCard_thenThrowIAE() {
+		// GIVEN
+		qcd.initDeck(3);
+		qcd.draw(qcd.getRevealed().get(0));
+		final QuestionCard badCard = qcd.getDiscard().get(0);
+
+		// WHEN
+		assertThrows(IllegalArgumentException.class, () -> qcd.draw(badCard));
+	}
+
 }
