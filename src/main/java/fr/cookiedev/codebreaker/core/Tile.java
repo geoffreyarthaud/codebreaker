@@ -15,7 +15,8 @@ public enum Tile implements Comparable<Tile> {
 	W3(3, Color.WHITE),
 	B4(4, Color.BLACK),
 	W4(4, Color.WHITE),
-	G5(5, Color.GREEN),
+	G5_1(5, Color.GREEN),
+	G5_2(5, Color.GREEN),
 	B6(6, Color.BLACK),
 	W6(6, Color.WHITE),
 	B7(7, Color.BLACK),
@@ -49,7 +50,6 @@ public enum Tile implements Comparable<Tile> {
 
 	public static List<Tile> tilesList() {
 		final List<Tile> tiles = new ArrayList<>(Arrays.asList(Tile.values()));
-		tiles.add(Tile.G5);
 		return tiles;
 	}
 

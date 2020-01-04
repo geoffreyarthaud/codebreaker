@@ -9,7 +9,7 @@ import fr.cookiedev.codebreaker.core.Tile;
 
 class QuestionUtilsTest {
 
-	private final Code code = new Code(Tile.B1, Tile.W2, Tile.G5, Tile.B7, Tile.W7);
+	private final Code code = new Code(Tile.B1, Tile.W2, Tile.G5_1, Tile.B7, Tile.W7);
 
 	@Test
 	void givenACodeWithOne2_whenGetPositions_thenGetCorrectAnswer() {

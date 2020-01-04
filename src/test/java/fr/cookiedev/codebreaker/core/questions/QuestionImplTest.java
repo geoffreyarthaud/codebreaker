@@ -31,7 +31,7 @@ import fr.cookiedev.codebreaker.core.questions.impl.WhiteSumQuestionImpl;
 
 public class QuestionImplTest {
 
-	private final Code code = new Code(Tile.B0, Tile.B2, Tile.G5, Tile.W8, Tile.W9);
+	private final Code code = new Code(Tile.B0, Tile.B2, Tile.G5_1, Tile.W8, Tile.W9);
 	private final Code code2 = new Code(Tile.B1, Tile.B2, Tile.B3, Tile.W8, Tile.W9);
 
 	@Test
