@@ -10,4 +10,8 @@ public interface Question {
 		return QuestionMessages.getString(getClass().getSimpleName() + ".ask"); //$NON-NLS-1$
 	}
 
+	default String getId() {
+		return getClass().getSimpleName();
+	}
+
 }

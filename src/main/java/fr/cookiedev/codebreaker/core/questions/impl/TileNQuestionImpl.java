@@ -24,4 +24,9 @@ public class TileNQuestionImpl implements Question {
 		return MessageFormat.format(Question.super.ask(), value);
 	}
 
+	@Override
+	public String getId() {
+		return getClass().getSimpleName() + value;
+	}
+
 }

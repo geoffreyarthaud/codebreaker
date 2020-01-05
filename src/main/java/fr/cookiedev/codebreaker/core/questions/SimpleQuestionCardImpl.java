@@ -22,4 +22,9 @@ public class SimpleQuestionCardImpl implements QuestionCard {
 		return question.answer(code);
 	}
 
+	@Override
+	public String getId() {
+		return question.getId();
+	}
+
 }

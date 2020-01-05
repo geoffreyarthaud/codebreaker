@@ -1,6 +1,8 @@
 package fr.cookiedev.codebreaker.core.questions;
 
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import fr.cookiedev.codebreaker.core.Code;
 
@@ -34,6 +36,11 @@ public class ChoiceQuestionCardImpl implements QuestionCard {
 
 	public String getChoiceMessage(int choice) {
 		return questions[choice].ask();
+	}
+
+	@Override
+	public String getId() {
+		return Arrays.stream(questions).map(Question::getId).collect(Collectors.joining());
 	}
 
 }

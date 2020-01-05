@@ -1,50 +1,52 @@
 package fr.cookiedev.codebreaker.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
 
 import java.util.EnumSet;
-import java.util.Objects;
+import java.util.List;
 import java.util.Set;
 
 import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import fr.cookiedev.codebreaker.core.Code;
 import fr.cookiedev.codebreaker.core.Tile;
+import fr.cookiedev.codebreaker.core.questions.QuestionCard;
 
-@ExtendWith(MockitoExtension.class)
 class GameTest {
 
 	private Game game;
 
-	@Mock
-	private Player player1;
-
-	@Mock
-	private Player player2;
-
 	@Test
 	void whenTwoRegistredPlayers_thenStartedEventWithCorrectCodeIsEmitted() {
 		// GIVEN
-		final ArgumentCaptor<Code> codeCaptor = ArgumentCaptor.forClass(Code.class);
+		final String player1Id = "ID1";
+		final String player2Id = "ID2";
+		game = new Game(player1Id, player2Id);
 
 		// WHEN
-		game = new Game(player1, player2);
+		final Code player1Code = game.getCode(player1Id);
+		final Code player2Code = game.getCode(player2Id);
 
 		// THEN
-		verify(player1).provideCode(eq(game), codeCaptor.capture());
-		final Code player1Code = Objects.requireNonNull(codeCaptor.getValue());
-		verify(player2).provideCode(eq(game), codeCaptor.capture());
-		final Code player2Code = Objects.requireNonNull(codeCaptor.getValue());
 		final Set<Tile> tiles = EnumSet.of(player1Code.a(), player1Code.b(), player1Code.c(), player1Code.d(),
 				player1Code.e());
 		assertThat(tiles.removeAll(Arrays.asList(player2Code.getTiles()))).isFalse();
+	}
+
+	@Test
+	void givenNewGame_whenGetBoard_ThenGet6DiferentQuestions() {
+		// GIVEN
+		final String player1Id = "ID1";
+		final String player2Id = "ID2";
+		game = new Game(player1Id, player2Id);
+		// WHEN
+		final List<QuestionCard> cards = game.getAvailableQuestions();
+
+		// THEN
+		final String[] ids = cards.stream().map(QuestionCard::getId).toArray(String[]::new);
+		assertThat(cards).hasSize(6)
+				.extracting(QuestionCard::getId).containsOnlyOnce(ids);
 	}
 
 }
