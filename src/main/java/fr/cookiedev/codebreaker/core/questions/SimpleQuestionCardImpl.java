@@ -1,5 +1,7 @@
 package fr.cookiedev.codebreaker.core.questions;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import fr.cookiedev.codebreaker.core.Code;
@@ -25,6 +27,11 @@ public class SimpleQuestionCardImpl implements QuestionCard {
 	@Override
 	public String getId() {
 		return question.getId();
+	}
+
+	@Override
+	public List<Question> getQuestions() {
+		return Arrays.asList(question);
 	}
 
 }

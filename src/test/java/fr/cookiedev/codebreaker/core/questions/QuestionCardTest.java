@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -81,6 +83,30 @@ class QuestionCardTest {
 
 		// THEN
 		assertThat(actual).isEqualTo("ANSWER1");
+	}
+
+	@Test
+	void givenSimpleQuestion_whenGetQuestions_thenGetCorrectQuestions() {
+		// GIVEN
+		final QuestionCard simpleCard = new SimpleQuestionCardImpl(q1);
+
+		// WHEN
+		final List<Question> actualQuestions = simpleCard.getQuestions();
+
+		// THEN
+		assertThat(actualQuestions).containsExactlyInAnyOrder(q1);
+	}
+
+	@Test
+	void givenChoiceQuestion_whenGetQuestions_thenGetCorrectQuestions() {
+		// GIVEN
+		final QuestionCard choiceCard = new ChoiceQuestionCardImpl("ASKGLOBAL", q2, q3);
+
+		// WHEN
+		final List<Question> actualQuestions = choiceCard.getQuestions();
+
+		// THEN
+		assertThat(actualQuestions).containsExactlyInAnyOrder(q2, q3);
 	}
 
 	@Test

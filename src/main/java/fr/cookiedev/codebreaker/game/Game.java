@@ -34,7 +34,7 @@ public class Game {
 
 	private final String player2Id;
 
-	private final GameStatus status;
+	private GameStatus status;
 
 	private final QuestionCardDeck deck;
 
@@ -43,22 +43,34 @@ public class Game {
 	private final Code codePlayer2;
 
 	public Game(String player1Id, String player2Id) {
+		this(player1Id, player2Id, defaultDeck(), 6);
+	}
+
+	public Game(String player1Id, String player2Id, List<QuestionCard> deckCards, int nbCards) {
 		this.player1Id = Objects.requireNonNull(player1Id);
 		this.player2Id = Objects.requireNonNull(player2Id);
+
+		if (player1Id.isBlank() || player2Id.isBlank()) {
+			throw new IllegalArgumentException();
+		}
+
 		final List<Tile> tiles = Tile.tilesList();
 		Collections.shuffle(tiles);
 		codePlayer1 = new Code(tiles.get(0), tiles.get(1), tiles.get(2), tiles.get(3), tiles.get(4));
 		codePlayer2 = new Code(tiles.get(5), tiles.get(6), tiles.get(7), tiles.get(8), tiles.get(9));
-		status = GameStatus.P1_ASK;
-		deck = new QuestionCardDeck(fillDeck());
-		deck.initDeck(6);
+
+		status = GameStatus.P1_TURN;
+		// FIXME : DIP !!!
+		deck = new QuestionCardDeck(deckCards);
+		deck.initDeck(nbCards);
+
 	}
 
 	public List<QuestionCard> getAvailableQuestions() {
 		return deck.getRevealed();
 	}
 
-	private List<QuestionCard> fillDeck() {
+	private static List<QuestionCard> defaultDeck() {
 		final List<QuestionCard> cards = new ArrayList<>();
 		cards.add(cardOf(new TileNQuestionImpl(0)));
 		cards.add(cardOf(new TileNQuestionImpl(5)));
@@ -104,5 +116,33 @@ public class Game {
 
 	public GameStatus getStatus() {
 		return status;
+	}
+
+	public String ask(String playerId, QuestionCard qc, int idQuestion) {
+		requireCanAsk(playerId);
+		status = status == GameStatus.P1_TURN ? GameStatus.P2_TURN : GameStatus.P1_TURN;
+		return qc.answer(idQuestion, getCode(playerId));
+	}
+
+	private void requireCanAsk(String playerId) {
+		if (!player1Id.equals(playerId) && !player2Id.equals(playerId)) {
+			throw new IllegalArgumentException();
+		}
+		if (player1Id.equals(playerId) && status != GameStatus.P1_TURN
+				|| player2Id.equals(playerId) && status != GameStatus.P2_TURN) {
+			throw new IllegalStateException();
+		}
+	}
+
+	public boolean tryCode(String playerId, Code tryCode) {
+		requireCanAsk(playerId);
+		final Code actualCode = status == GameStatus.P1_TURN ? codePlayer2 : codePlayer1;
+		final boolean codeMatch = Code.match(tryCode, actualCode);
+		if (codeMatch) {
+			status = status == GameStatus.P1_TURN ? GameStatus.P1_WIN : GameStatus.P2_WIN;
+		} else {
+			status = status == GameStatus.P1_TURN ? GameStatus.P2_TURN : GameStatus.P1_TURN;
+		}
+		return codeMatch;
 	}
 }
