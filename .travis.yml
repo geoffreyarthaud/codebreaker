@@ -1,14 +1,11 @@
 jdk:
 - openjdk11
-- openjdk12
-- openjdk13
 language: java
 addons:
   sonarcloud:
     organization: "geoffreyarthaud"
-    token:
-      secure: IqaqIeH8l4Ztw+Ut+sUoLk+3R6S92Y0BkCwwQQHWJa9OIl1gjM77N489a3yyljMK3n0u2bfKF9PljtCn95u+z2a1cn8miU7Zyr8usbBFI3AaW2YEl+rvtZOVG71K3SngBIvlfaf350odbI4jJy/1NiEz0D3viCvMfhtmJDASXpLr2XKKzJyF3G6/EZxyIQe36AWBNCVdbOqP+Jgnj2eYqETmXQgRWbJuRGUqTgxTSXnxUBGPUm9Mcqts7DMjHlRL0G1RZVGFPr0sPOAtu3d6q+eP7EI6XVbxTLginH2Kk/ZiwhNYkRV4m6ItW6qUhGTGrm8J+2QrY3fucxzknnlf4Y5TlcpJWxjoAQdx2OJYfk0X26d8ySuSKa8G5TxWGFNZsXY9ZC8Fhkd+bd+11Ca6B/lTQi2bQiQNAWrFyLDDqfrmJGwnj60O6OH2w/TpAU/ZcJqu4pLuaVvEPPec+z0Z4S9KG+B+QN8mlITWf8M9zcBNT23jUDGAlSqFwwB8ohMbdyY1MizKW6VS8mbWOl+djJjIC29LL4FPoIOHGFjbVal9W4lGmjExdnyqhZIcVqhi6mkSdc9+lijglXR5PvRPSSKJEbJTq1WlNCqHWMuzqe4c0hKit8UZ6s2Rd//dtAzF/Dn87L/gsz2sWF/1eYmfM7U2A1frCbegX9RIpTDx+y8=
+    token: ${SONAR_TOKEN}
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=geoffreyarthaud_codebreaker
 
     
